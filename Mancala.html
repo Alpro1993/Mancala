@@ -1,0 +1,72 @@
+<!-- Game description
+        1. Board
+            . Variable board size.
+            . Each player has control of their half of the board + right hand side warehouse
+        2. Pieces
+            . "Seeds", represented by circles
+            . Must be placed inside "fields", holes in board
+            . Aim for randomization of distribution
+        3. Start-State
+            . Warehouses are empty
+            . Each "field" in the board has the same number of seeds
+        4. How to play
+            . On each turn, the current player can choose a "field" from which to take all seeds from, placing one in each field to the right, rotating anti-clockwise.
+            . If you reach your warehouse, place a seed there.
+            . All extra seeds go to your opponent's fields.
+            . If you reach the opponent's warehouse, DO NOT place a seed there, but wrap around to your own fields.
+            . Play again if last placed seed was placed in YOUR warehouse.
+            . If the last seed you place lands in an empty "field" on your side, place that seed plus all the seeds from the "field" directly opposed to the empty "field" in your warehouse.
+        5. End-State
+            . Game ends when one of the players is no longer able to continue due to having no seeds in his "fields".
+            . The other player then retrieves all the seeds from his "fields" and places them in his warehouse.
+        6. Scoring
+            . After the game ends, each player counts the number of seeds in his warehouse. 
+            . The player with the most seeds wins. 
+        
+        
+        
+     TO-DO
+        1. Create general layout
+            . Areas required:
+                ..Logo
+                ..Login
+                ..Buttons for commands
+                ..Board
+                ..Game-state summary
+                ..Notifications (player's turn, game over, etc.)
+                ..Quick configuration
+        2. Create AI Implementation
+            . Choose algorithm
+            . Choose way to alter difficulty
+            . 
+-->
+    
+
+<!DOCTYPE html lang="en">
+<html>
+  <head>
+    <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
+    <title>Mancala Online</title>  <!-- texto na decoração da janela -->
+  </head>
+<body bgcolor="white">
+
+<div id ="title_banner" align="center">
+    <h1>Mancala Online</h1>
+    <h3>Welcome to Mancala Online!</h3>
+</div>
+
+
+<hr>
+<div id="button_bar" align="center">
+    <button type="button" name="login">Login</button>
+    <button type="button" name="rules">Rules</button>
+    <button type="button" name="leaderboard">Leaderboard</button>
+</div>
+
+<hr>
+<h4>Choose your settings or click play to begin playing with the default settings.</h4>
+
+
+
+</body>
+</html>
