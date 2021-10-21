@@ -1,4 +1,62 @@
-<!-- Game description
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset=UTF-8> 
+    <title>Mancala Online</title>
+    <link rel="stylesheet" href="Mancala.css" type="text/css">  
+
+  </head>
+<body>
+
+<div id="nav_bar">
+    <a href="#Settings">Settings</a>
+    <a href="#rules">Rules</a>
+    <a href="#leaderboard">Leaderboard</a>
+    <a href="#login">Log in</a>
+</div>
+<!-- <div id="login_button" align="left">
+    <button type="button" class="button">Login</button>
+</div> -->
+<div id ="title_banner" align="center">
+    <h1>Mancala Online</h1>
+    <h3>Welcome to Mancala Online!</h3>
+</div>
+
+
+<hr>
+
+<div id="game_area" align="center">
+    <table id="board"> </table>
+    <h4>Choose your settings or click play to begin playing with the default settings.</h4>
+    <button type="button" name="lets_play">Let's play!</button>
+    <table id="board"> </table>
+</div>
+
+
+
+</body>
+</html>
+
+
+<!-- 
+    Priority queue:
+        Create working game (with any default settings), including concede button
+            . Create board
+            . Create seeds
+            . Allow board interaction
+            . Implement rules
+            . Create opponent and his actions
+
+        Create settings area
+        Create messages (win, loss, concede)
+        Allow settings area to alter game
+        Design leaderboard metrics
+        Create leaderboard
+        Create login area
+        Create rules area
+        Improve presentation and design
+    
+    Game description
         1. Board
             . Variable board size.
             . Each player has control of their half of the board + right hand side warehouse
@@ -40,33 +98,3 @@
             . Choose way to alter difficulty
             . 
 -->
-    
-
-<!DOCTYPE html lang="en">
-<html>
-  <head>
-    <meta charset=UTF-8>        <!-- para caracteres acentuados   -->
-    <title>Mancala Online</title>  <!-- texto na decoração da janela -->
-  </head>
-<body bgcolor="white">
-
-<div id ="title_banner" align="center">
-    <h1>Mancala Online</h1>
-    <h3>Welcome to Mancala Online!</h3>
-</div>
-
-
-<hr>
-<div id="button_bar" align="center">
-    <button type="button" name="login">Login</button>
-    <button type="button" name="rules">Rules</button>
-    <button type="button" name="leaderboard">Leaderboard</button>
-</div>
-
-<hr>
-<h4>Choose your settings or click play to begin playing with the default settings.</h4>
-
-
-
-</body>
-</html>
