@@ -31,7 +31,6 @@ body {
 }
 .nav_bar_item {
     order: 1;
-    position: relative;
     display: block;
     width: auto;
     padding: 10px;
