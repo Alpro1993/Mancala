@@ -1,0 +1,32 @@
+<!DOCTYPE html >
+<html lang="en">
+  <head>
+    <meta charset=UTF-8> 
+    <title>Mancala Online</title>
+    <link rel="stylesheet" href="style.css" type="text/css"> 
+    <script src="app.js"></script>
+
+  </head>
+
+  <body style="background-color: rgb(32, 32, 32);">
+    <div class="content" id="content">
+      
+      <div class="radioBox" id="sizeBox">
+        <h3>Select your board size</h3>
+        <input type="radio" name="boardSize" id=2 onclick="load_board(2)"><label for="2">2x2</label></input>
+        <input type="radio" name="boardSize" id=3 onclick="load_board(3)"><label for="3">3x3</label></input>
+        <input type="radio" name="boardSize" id=4 onclick="load_board(4)"><label for="4">4x4</label></input>
+        <input type="radio" name="boardSize" id=6 onclick="load_board(6)"><label for="6">6x6</label></input>
+      </div>
+
+      <div class="fullBoard" id=fullBoard>
+        <div class="board" id=board></div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function() { load_board(6)});
+        </script>
+      </div>
+      <div class="messageBox" id="messageBox"></div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
