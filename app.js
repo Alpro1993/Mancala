@@ -1,4 +1,4 @@
-import "./game/mancala_game.js"
+// import defaultExport from "./game/mancala_game.js";
 
 function load_board (size) {
     
