@@ -4,15 +4,20 @@ import Player from './classes/Player.js'
 import Field from './classes/Field.js'
 import Game from './classes/Game.js'
 
+var game;
+var board;
+var player;
+var opp;
+var activePlayer;
 
-
-function initialize_game (size, seeds) {
-    var game = new Game();
-    var board = new Board(size);
-    const seedsPerField = seeds / (size*2);
+export function initialize_game (size, seedsPerField) {
+    game = new Game();
+    board = new Board(size);
     
-    var player = new Player("player");
-    var opp = new Player("opp");
+    player = new Player("player");
+    opp = new Player("opp");
+
+    activePlayer = player;
     
     var playerWarehouse = new Warehouse(player);
     player.warehouse = playerWarehouse
@@ -26,8 +31,9 @@ function initialize_game (size, seeds) {
         playerFields[i] = new Field(player, i)
         oppFields[i] = new Field(opp, i);
     }
-    player.fields = playerFields
-    opp.fields = oppFields
+    
+    player.fields = playerFields;
+    opp.fields = oppFields;
 
     for (let i = 0; i < size; i++) {
         playerFields[i].seeds(seedsPerField);
@@ -41,41 +47,52 @@ function initialize_game (size, seeds) {
 }
 
 
-function concede () {
+export function concede () {
     game.gameState = 3;
 }
 
-function take_turn (player) {
-    var field = select_field(player);
+
+//Function take_turn should be given higher abstraction in order to encompass turns of both player and computer
+// async function take_turn (activePlayer) {
     
-    if (field.seeds == 0) {
-        throw new Error('field has no seeds');
-        return;
-    }
+//     field = await select_field(fieldId);
+    
+//     if (field.seeds == 0) {
+//         alert("Field has no seeds!");
+//         throw new Error('field has no seeds');
+//     }
 
-    seedsToSpread = field.seeds;
-    field.remove_seeds();
+//     seedsToSpread = field.seeds;
+//     field.remove_seeds();
 
-    var lastSownField = sow (field, seedsToSpread);
-    player.score = playerWarehouse.seeds;
+//     var lastSownField = sow (field, seedsToSpread);
+//     activePlayer.score = activePlayer.warehouse.seeds;
 
-    //If last seed planted landed on one of the player's empty fields,
-    //place that seed in the player's warehouse, remove all seeds
-    //from the opponent's directly opposite field and place them in the 
-    //player's warehouse as well.
-    if (lastSownField.owner == player && lastSownField.seeds == 1) {  
-        lastSownField.remove_seeds();
-        playerWarehouse.store(1);
-        steal_seeds(player.opponent, lastSownField.position);
-        player.score = playerWarehouse.seeds;
-    } 
-    //If the last seed was placed in the player's warehouse, play again.
-    else if (lastSownField == playerWarehouse) {
-        take_turn(player);
-    } 
+//     //If last seed planted landed on one of the player's empty fields,
+//     //place that seed in the player's warehouse, remove all seeds
+//     //from the opponent's directly opposite field and place them in the 
+//     //player's warehouse as well.
+//     if (lastSownField.owner === player && lastSownField.seeds === 1) {  
+//         lastSownField.remove_seeds();
+//         playerWarehouse.store(1);
+//         steal_seeds(activePlayer.opponent, lastSownField.position);
+//         player.score = playerWarehouse.seeds;
+//     } 
+//     //If the last seed was placed in the player's warehouse, play again.
+//     else if (lastSownField == activePlayer.warehouse) {
+//         take_turn(activePlayer);
+//     } 
+       
+//     check_win_condition(activePlayer);
 
-    return 1;
-}
+//     if(game.gameState != 1){
+//            end_game_procedures(activePlayer);
+//     } else {
+//       activePlayer = activePlayer.opponent;
+//       take_turn(activePlayer);
+//     }
+//     
+// }
 
 function steal_seeds (victim, position) {
     targetField = victim.fields[position];
@@ -89,9 +106,20 @@ function sow (field, seedsToSpread) {
 
 }
 
-function field_selected (fieldId) {
-    selectedField.fieldId = fieldId;
+export async function selected_field(activePlayer) {
+    if (activePlayer == player) {
+       var selectedField = await wait_for_play();
+    } else if (activePlayer == opp) {
+        selectedField = ai_select_field()
+    }
+    return Promise<selectedField>;
 }
+
+function wait_for_play() {
+
+}
+
+export function field_clicked
 
 // const playerFieldButtons = document.querySelectorAll(".playerField");
 // const oppFieldButtons = document.querySelectorAll(".oppField");

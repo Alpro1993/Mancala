@@ -1,4 +1,4 @@
-// import defaultExport from "./game/mancala_game.js";
+import {field_clicked, initialize_game, concede, field_clicked } from "./game/mancala_game.js";
 
 function load_board (size) {
     
@@ -9,6 +9,7 @@ function load_board (size) {
 
     let relativeWidth = 90 / size;
     
+    //Creates opponent warehouse
     let oppWarehouse = document.createElement("div");
     oppWarehouse.className = "warehouse";
     oppWarehouse.id = "oppWarehouse";
@@ -24,10 +25,6 @@ function load_board (size) {
         board.appendChild(field);
     }
 
-
-
-
-    
     //Creates players fields and gives them unique IDs.
     for(let i=0; i<size; i++){
         let field = document.createElement("div");
@@ -36,20 +33,22 @@ function load_board (size) {
         
         field.innerHTML += '0';
         board.appendChild(field);
-        field.addEventListener("click", function() {field_selected (i);});
+        field.addEventListener("click", function() {field_clicked (i);});
     }
-
+    
+    //Creates player's warehouse
     let playerWarehouse = document.createElement("div");
     playerWarehouse.className = "warehouse";
     playerWarehouse.id = "playerWarehouse";
     playerWarehouse.innerHTML += '0';
     fullBoard.appendChild(playerWarehouse);
 
+    //Styles board
     board.style.cssText = "display: grid; grid-template-rows: repeat(2, 50%); grid-template-columns: repeat("+size+", 100px); align-content: center; order: 2; grid-gap: 10px;";
-
+    
+    //Initializes game with 4 seeds per field;	
+    initialize_game(size, 4);
 }
-
-//"+relativeWidth+"
 
 function reset_board() {
     let content = document.getElementById("content");
@@ -70,8 +69,4 @@ function reset_board() {
     board.className = "board";
     board.id = "board";
     fullBoard.appendChild(board);
-}
-
-function field_selected (fieldId) {
-    alert("Field "+fieldId+" has been clicked");
 }
