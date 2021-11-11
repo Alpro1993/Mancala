@@ -14,6 +14,16 @@
     margin: auto;
 }
 
+#board {
+    display: grid; 
+    
+    grid-template-rows: repeat(2, 50%);
+    grid-gap: 10px; 
+    
+    align-content: center; 
+    order: 2; 
+}
+
 .field {
     font-family: sans-serif;
     color: white;
@@ -57,14 +67,56 @@
 }
 
 input[type="radio"] + label {
-    color: white;
+    color: black;
 }
 
-.radioBox {
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    padding: 20px;
-    margin: auto;
+.radioButtons {
+    list-style-type: none;
 }
 
+.overlay {
+    display: none;
+
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    z-index: 2;
+    margin: 7% 25%;
+
+    border: 3px solid white;
+    border-radius: 1%;
+
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.overlayMenu {
+
+    display: flexbox;
+
+    padding-left: 2%;
+    width: 18%;
+
+    align-content: center;
+
+    margin-left: 15px;
+    margin-top: 15px;
+    
+    border: 2px solid black;
+    border-radius: 5%;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+}
+
+#settingsOverlay {
+    display: none;
+}
+
+#rulesOverlay {
+    display: none;
+}
+
+#leaderboardOverlay {
+    display: none;
+}

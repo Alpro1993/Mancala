@@ -10,7 +10,7 @@ var player;
 var opp;
 var activePlayer;
 
-export function initialize_game (size, seedsPerField) {
+function initialize_game (size, seedsPerField) {
     game = new Game();
     board = new Board(size);
     
@@ -47,7 +47,7 @@ export function initialize_game (size, seedsPerField) {
 }
 
 
-export function concede () {
+function concede () {
     game.gameState = 3;
 }
 
@@ -106,20 +106,22 @@ function sow (field, seedsToSpread) {
 
 }
 
-export async function selected_field(activePlayer) {
+async function selected_field(activePlayer) {
     if (activePlayer == player) {
        var selectedField = await wait_for_play();
     } else if (activePlayer == opp) {
         selectedField = ai_select_field()
     }
-    return Promise<selectedField>;
+    return 1;
 }
 
 function wait_for_play() {
 
 }
 
-export function field_clicked
+export function field_clicked(fieldId) {
+    alert("Clicked player's field number "+i+"");
+}
 
 // const playerFieldButtons = document.querySelectorAll(".playerField");
 // const oppFieldButtons = document.querySelectorAll(".oppField");
