@@ -93,6 +93,23 @@ input[type="radio"] + label {
     flex-wrap: wrap;
 }
 
+#loginForm {
+    border: 0px;
+    flex-grow: 5;
+    margin: 1%;
+    padding-bottom: 3%;
+}
+
+#rulesList {
+    border: 0px;
+    flex-grow: 5;
+    margin: 1%;
+    padding-bottom: 3%;
+    padding-top: 3%;
+    
+    line-height: 1;
+}
+
 .overlayMenu {
 
     display: flexbox;
@@ -108,6 +125,14 @@ input[type="radio"] + label {
     font-family: 'Montserrat', sans-serif;
     color: black;
 }
+
+#loginOverlay {
+    display: none;
+    width: 50%;
+}
+
+
+
 
 #settingsOverlay {
     display: none;

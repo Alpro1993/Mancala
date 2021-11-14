@@ -1,84 +1,129 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset=UTF-8> 
-    <title>Mancala Online</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
-    <script src="app.js"></script> 
-    
-  </head>
 
-  <body style="background-color: rgb(32, 32, 32);">
-    <script src="/game/mancala_game.js" type="module"></script>
-    <div class="overlayContainer">
-      <div class="overlay" id="settingsOverlay">
-        <div class="overlayMenu" id="boardSize">
-          <ul class="radioButtons">
-            <li>BOARD SIZE</li><br>
-            <li><input type="radio" name="boardSize" id=2 onclick="event.stopPropagation(); load_board(2)"><label for="2">2x2</label></input></li>
-            <li><input type="radio" name="boardSize" id=3 onclick="event.stopPropagation(); load_board(3)"><label for="3">3x3</label></input></li>
-            <li><input type="radio" name="boardSize" id=4 onclick="event.stopPropagation(); load_board(4)"><label for="4">4x4</label></input></li>
-            <li><input type="radio" name="boardSize" id=6 checked="checked" onclick="event.stopPropagation(); load_board(6)"><label for="6">6x6</label></input></li>
-          </ul>
-        </div>
-        <div class="overlayMenu" id="numberOfSeeds">
-          <ul class="radioButtons">
-            <li>NUMBER OF SEEDS</li><br>
-            <li><input type="radio" name="numberOfSeeds" id="2seeds" onclick="event.stopPropagation(); load_board(2)"><label for="2">2 seeds</label></input></li>
-            <li><input type="radio" name="numberOfSeeds" id="3seeds" onclick="event.stopPropagation(); load_board(3)"><label for="3">3 seeds</label></input></li>
-            <li><input type="radio" name="numberOfSeeds" id="4seeds" checked="checked" onclick="event.stopPropagation(); load_board(4)"><label for="4">4 seeds</label></input></li>
-            <li><input type="radio" name="numberOfSeeds" id="6seeds" onclick="event.stopPropagation(); load_board(6)"><label for="6">6 seeds</label></input></li>
-          </ul>
-        </div>
-        <div class="overlayMenu" id="difficulty">
-          <ul class="radioButtons">
-            <li>DIFFICULTY</li><br> 
-            <li><input type="radio" name="difficulty" id="difEasy" onclick="event.stopPropagation(); load_board(2)"><label for="2">EASY</label></input></li>
-            <li><input type="radio" name="difficulty" id="difMedium" checked="checked" onclick="event.stopPropagation(); load_board(3)"><label for="3">MEDIUM</label></input></li>
-            <li><input type="radio" name="difficulty" id="difHard" onclick="event.stopPropagation(); load_board(4)"><label for="4">HARD</label></input></li>
-          </ul>
-        </div>
-        <div class="overlayMenu" id="opponent">
-          <ul class="radioButtons">
-            <li>OPPONENT</li><br> 
-            <li><input type="radio" name="opponent" id="computer" checked="checked" onclick="event.stopPropagation(); load_board(2)"><label for="2">Play vs. Computer</label></input></li>
-            <li><input type="radio" name="opponent" id="player" onclick="event.stopPropagation(); load_board(3)"><label for="3">Play vs. Player</label></input></li>
-          </ul>
-        </div>
-        <div class="overlayMenu" id="goFirst">
-          <ul class="radioButtons">
-            <li>GO FIRST?</li><br> 
-            <li><input type="radio" name="goFirst" id="goFirstYes" checked="checked" onclick="event.stopPropagation(); load_board(2)"><label for="2">YES</label></input></li>
-            <li><input type="radio" name="goFirst" id="goFirstNo" onclick="event.stopPropagation(); load_board(3)"><label for="3">NO</label></input></li>
-          </ul>
-        </div>
+<head>
+  <meta charset=UTF-8>
+  <title>Mancala Online</title>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+  <script src="app.js"></script>
+
+</head>
+
+<body style="background-color: rgb(32, 32, 32);">
+  <script src="/game/mancala_game.js" type="module"></script>
+
+  <div class="overlayContainer">
+
+    <div class="overlay" id="settingsOverlay" >
+      <div class="overlayMenu" id="boardSize" >
+        <ul class="radioButtons">
+          <li>BOARD SIZE</li><br>
+          <li><input type="radio" name="boardSize" id=2 onclick="event.stopPropagation(); load_board(2)"><label
+              for="2">2x2</label></input></li>
+          <li><input type="radio" name="boardSize" id=3 onclick="event.stopPropagation(); load_board(3)"><label
+              for="3">3x3</label></input></li>
+          <li><input type="radio" name="boardSize" id=4 onclick="event.stopPropagation(); load_board(4)"><label
+              for="4">4x4</label></input></li>
+          <li><input type="radio" name="boardSize" id=6 checked="checked"
+              onclick="event.stopPropagation(); load_board(6)"><label for="6">6x6</label></input></li>
+        </ul>
       </div>
-      <div class="overlay" id="rulesOverlay"></div>
-      <div class="overlay" id="leaderboardOverlay"></div>
+      <div class="overlayMenu" id="numberOfSeeds">
+        <ul class="radioButtons">
+          <li>NUMBER OF SEEDS</li><br>
+          <li><input type="radio" name="numberOfSeeds" id="2seeds"
+              onclick="event.stopPropagation(); load_board(2)"><label for="2">2 seeds</label></input></li>
+          <li><input type="radio" name="numberOfSeeds" id="3seeds"
+              onclick="event.stopPropagation(); load_board(3)"><label for="3">3 seeds</label></input></li>
+          <li><input type="radio" name="numberOfSeeds" id="4seeds" checked="checked"
+              onclick="event.stopPropagation(); load_board(4)"><label for="4">4 seeds</label></input></li>
+          <li><input type="radio" name="numberOfSeeds" id="6seeds"
+              onclick="event.stopPropagation(); load_board(6)"><label for="6">6 seeds</label></input></li>
+        </ul>
+      </div>
+      <div class="overlayMenu" id="difficulty">
+        <ul class="radioButtons">
+          <li>DIFFICULTY</li><br>
+          <li><input type="radio" name="difficulty" id="difEasy" onclick="event.stopPropagation(); load_board(2)"><label
+              for="2">EASY</label></input></li>
+          <li><input type="radio" name="difficulty" id="difMedium" checked="checked"
+              onclick="event.stopPropagation(); load_board(3)"><label for="3">MEDIUM</label></input></li>
+          <li><input type="radio" name="difficulty" id="difHard" onclick="event.stopPropagation(); load_board(4)"><label
+              for="4">HARD</label></input></li>
+        </ul>
+      </div>
+      <div class="overlayMenu" id="opponent">
+        <ul class="radioButtons">
+          <li>OPPONENT</li><br>
+          <li><input type="radio" name="opponent" id="computer" checked="checked"
+              onclick="event.stopPropagation(); load_board(2)"><label for="2">Play vs. Computer</label></input></li>
+          <li><input type="radio" name="opponent" id="player" onclick="event.stopPropagation(); load_board(3)"><label
+              for="3">Play vs. Player</label></input></li>
+        </ul>
+      </div>
+      <div class="overlayMenu" id="goFirst">
+        <ul class="radioButtons">
+          <li>GO FIRST?</li><br>
+          <li><input type="radio" name="goFirst" id="goFirstYes" checked="checked"
+              onclick="event.stopPropagation(); load_board(2)"><label for="2">YES</label></input></li>
+          <li><input type="radio" name="goFirst" id="goFirstNo" onclick="event.stopPropagation(); load_board(3)"><label
+              for="3">NO</label></input></li>
+        </ul>
+      </div>
     </div>
+
+    <div class="overlay" id="rulesOverlay"></div>
+
+    <div class="overlay" id="leaderboardOverlay"></div>
+
+    <div class="overlay" id="loginOverlay">
+
+      <div class="overlayMenu" id="loginForm">
+        <h4>Login</h4>
+
+        <div>
+          <label for="username">Username:</label><br>
+          <input type="text" id="username" name="username">
+        </div>
+
+        <div>
+          <label for="pass">Password (8 characters minimum):</label><br>
+          <input type="password" id="pass" name="password" minlength="8" required>
+        </div>
+
+        <input type="submit" value="Sign in">
+
+      </div>
+    </div>
+
     <div class="content" id="content">
+
       <div class="buttonBar" id="buttonBar">
         <button class="ovlButton" id="settingsButton">Settings</button>
         <button class="ovlButton" id="rulesButton">Rules</button>
         <button class="ovlButton" id="leaderboardButton">Leaderboard</button>
         <button class="loginButton" id="loginButton">Login</button>
       </div>
+
       <div class="fullBoard" id=fullBoard>
+
         <div class="board" id=board></div>
         <script>
           document.addEventListener("DOMContentLoaded", initial_config());
         </script>
       </div>
+
       <div class="messageBox" id="messageBox"></div>
+
     </div>
-    
-  </body>
+
+</body>
 
 
-  <!-- TODO
+<!-- TODO
           Add login functionality
           Move overlay content generation to js file.
           Create overlay with "Play game" button
