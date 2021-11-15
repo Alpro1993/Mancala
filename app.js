@@ -6,7 +6,7 @@ function initial_config() {
 
 function assign_event_listeners() {
     
-    //Buttons
+    /////////Nav Buttons////////////////////////
     document.getElementById("settingsButton").addEventListener("click", function(eventObj) {
         eventObj.stopPropagation(); 
         show_overlay("settingsOverlay");
@@ -25,6 +25,26 @@ function assign_event_listeners() {
         show_overlay("loginOverlay")
     });
 
+    ////////////Radio Buttons////////////////
+    //Board Size Buttons
+    document.getElementById("boardSize2").addEventListener("click", function(eventObj) {
+        eventObj.stopPropagation();
+        load_board(2);
+    });
+    document.getElementById("boardSize3").addEventListener("click", function(eventObj) {
+        eventObj.stopPropagation();
+        load_board(3);
+    });
+    document.getElementById("boardSize4").addEventListener("click", function(eventObj) {
+        eventObj.stopPropagation();
+        load_board(4);
+    });
+    document.getElementById("boardSize6").addEventListener("click", function(eventObj) {
+        eventObj.stopPropagation();
+        load_board(6);
+    });
+
+    ////////Handling of overlay clicks
     //Stop overlays from closing if you click inside the white area
     var overlays = document.getElementsByClassName("overlay");
     for(let i=0; i<overlays.length; i++) {
