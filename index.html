@@ -9,11 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
   <script src="app.js"></script>
+  <script src="/game/mancala_game.js" type="module"></script>
 
 </head>
 
 <body style="background-color: rgb(32, 32, 32);">
-  <script src="/game/mancala_game.js" type="module"></script>
+  
 
   <div class="overlayContainer">
 
@@ -21,101 +22,93 @@
       <div class="title">
         <h1>SETTINGS</h1>
       </div>
-      <form class="flexForm">
         <div class="overlayMenu" id="boardSize">
           <ul class="radioButtons">
-            <p>BOARD SIZE
-            <p>
-              <li><input type="radio" value="boardSize2" name="boardSize2" id="boardSize2">
+              <li><h4>BOARD SIZE</h4></li>
+              <li><input type="radio" value=2 name="boardSize" id="boardSize2">
                 <label for="boardSize2">2x2</label>
-              <li><input type="radio" value="boardSize3" name="boardSize3" id="boardSize3">
+              <li><input type="radio" value=3 name="boardSize" id="boardSize3">
                 <label for="boardSize3">3x3</label>
-              <li><input type="radio" value="boardSize4" name="boardSize4" id="boardSize4">
+              <li><input type="radio" value=4 name="boardSize" id="boardSize4">
                 <label for="boardSize4">4x4</label>
-              <li><input type="radio" value="boardSize6" name="boardSize6" id="boardSize6" checked="checked">
+              <li><input type="radio" value=6 name="boardSize" id="boardSize6" checked="checked">
                 <label for="boardSize6">6x6</label>
           </ul>
         </div>
         <div class="overlayMenu" id="numberOfSeeds">
           <ul class="radioButtons">
-            <p>SEEDS</p>
-            <li><input type="radio" value="numberOfSeeds2" name="numberOfSeeds" id="2seeds">
-              <label for="numberOfSeeds2">2 seeds</label><br>
-            <li><input type="radio" value="numberOfSeeds3" name="numberOfSeeds" id="3seeds">
-              <label for="numberOfSeeds3">3 seeds</label><br>
-            <li><input type="radio" value="numberOfSeeds4" name="numberOfSeeds" id="4seeds" checked="checked">
-              <label for="numberOfSeeds4">4 seeds</label><br>
-            <li><input type="radio" value="numberOfSeeds6" name="numberOfSeeds" id="6seeds">
-              <label for="numberOfSeeds6">6 seeds</label><br>
+            <li>SEEDS</li>
+            <li><input type="radio" value=2 name="numberOfSeeds" id="2seeds">
+              <label for="2seeds">2 seeds</label><br>
+            <li><input type="radio" value=3 name="numberOfSeeds" id="3seeds">
+              <label for="3seeds">3 seeds</label><br>
+            <li><input type="radio" value=4 name="numberOfSeeds" id="4seeds" checked="checked">
+              <label for="4seeds">4 seeds</label><br>
+            <li><input type="radio" value=6 name="numberOfSeeds" id="6seeds">
+              <label for="6seeds">6 seeds</label><br>
           </ul>
 
         </div>
         <div class="overlayMenu" id="difficulty">
           <ul class="radioButtons">
-            <li>
-              <p>DIFFICULTY</p>
-            <li><input type="radio" name="difficulty" id="difEasy">
+              <li>DIFFICULTY</li>
+            <li><input type="radio" value=0 name="difficulty" id="difEasy">
               <label for="difEasy">EASY</label>
-            <li><input type="radio" name="difficulty" id="difMedium" checked="checked">
+            <li><input type="radio" value=1 name="difficulty" id="difMedium" checked="checked">
               <label for="difMedium">MEDIUM</label>
-            <li><input type="radio" name="difficulty" id="difHard">
+            <li><input type="radio" value=2 name="difficulty" id="difHard">
               <label for="difHard">HARD</label>
           </ul>
 
         </div>
         <div class="overlayMenu" id="opponent">
           <ul class="radioButtons">
-            <li>
-              <p>OPPONENT</p>
-            </li>
+              <li>OPPONENT</li>
             <li><input type="radio" value="pve" name="opponent" id="computer" checked="checked">
               <label for="computer">Play vs. Computer</label>
             <li><input type="radio" value="pvp" name="opponent" id="player">
-              <label for="3">Play vs. Player</label>
+              <label for="player">Play vs. Player</label>
           </ul>
         </div>
         <div class="submitSettings" id="submitSettings">
-          <input type="submit" value="Submit">
+          <button id="submitSettingsButton">Submit</button>
         </div>
         <div class="overlayMenu" id="goFirst">
           <ul class="radioButtons">
-            <li>
-              <p>GO FIRST?</p>
-            </li>
-            <li><input type="radio" value="goFirstYes" name="goFirst" id="goFirstYes" checked="checked">
+              <li>GO FIRST?</li>
+            <li><input type="radio" value=true name="goFirst" id="goFirstYes" checked="checked">
               <label for="goFirstYes">YES</label>
-            <li><input type="radio" value="goFirstNo" name="goFirst" id="goFirstNo">
+            <li><input type="radio" value=false name="goFirst" id="goFirstNo">
               <label for="goFirstNo">NO</label>
           </ul>
         </div>
-      </form>
     </div>
 
     <div class="overlay" id="rulesOverlay">
+      <h1 class="title">RULES</h1>
       <ol class="overlayMenu" id="rulesList">
-        <h1 class="title">RULES</h1>
-        <br>
+        
         <li>The game begins with one player picking up all of the pieces in any
           one of the pockets on his/her side</li>
-        <br>
+        
         <li>Moving counter-clockwise, the player deposits one of the stones in each pocket until
           the stones run out</li>
-        <br>
+        
         <li>If you run into your own Mancala(store), deposit one piece in it.
           If you run into your opponent's Mancala, skip it and continue moving to the next pocket.</li>
-        <br>
+        
         <li>If the last piece you drop is in your own Mancala, you take another turn</li>
-        <br>
+        
         <li>If the last piece you drop is in an empty pocket on your side,
           you capture that piece adn any pieces in the pocket directly opposite.</li>
-        <br>
+        
         <li>Always place all capture pieces in your Mancala(store)</li>
-        <br>
+        
         <li>The game ends when all six pockets on one side of the Mancala board are empty.</li>
-        <br>
+        
         <li>The player who still has pieces
           on his/her side of the board when the game ends captures all of those pieces.</li>
-        <br>
+        
         <li>Count all the pieces in each Mancala. The winner is the player with the most pieces.</li>
       </ol>
     </div>
@@ -135,12 +128,12 @@
           <input type="password" id="pass" name="password" minlength="8" required>
         </div>
 
-        <input type="submit" value="Sign in">
+        <button id="loginSubmit">Log in!</button>
 
       </div>
     </div>
-
-    <div class="content" id="content">
+  </div>
+  <div class="content" id="content">
 
       <div class="buttonBar" id="buttonBar">
         <button class="ovlButton" id="settingsButton">Settings</button>
@@ -149,26 +142,32 @@
         <button class="loginButton" id="loginButton">Login</button>
       </div>
 
+      <div class="overlay" id="boardOverlay">
+        <button class="ovlButton" id="playGame">Play Game</button>
+      </div>
+
       <div class="fullBoard" id=fullBoard>
 
         <div class="board" id=board></div>
-        <script>
-          document.addEventListener("DOMContentLoaded", initial_config());
-        </script>
+
       </div>
-
-      <div class="messageBox" id="messageBox"></div>
-
-    </div>
+      <div class="ovlButton" id="concedeButton">Concede</div>
 
   </div>
+
+  
+  <div class="messageBox" id="messageBox"></div>
+  
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", initial_config());
+  </script>
 
 </body>
 
 
 <!-- TODO
-          Add login functionality
-          Move overlay content generation to js file.
-          Create overlay with "Play game" button
-          Assign default values to radio buttons
-           -->
+        - Add alert when opening settings menu with game started
+        - changing any settings will concede game and reset the "Play Game" button
+       -->

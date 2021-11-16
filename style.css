@@ -1,4 +1,17 @@
+#boardOverlay {
+    display: flex;
+
+    justify-content: center;
+
+    border: 0px;
+    background: none;
+
+}
+
+
+
 .fullBoard {
+    position: relative;
     display: flex;
 
     padding: 100px;
@@ -9,13 +22,16 @@
     align-items: stretch;
 
     min-height: 200px;
-    max-width: 1440px;
-    max-height: 400px;
-    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    
+    filter: blur(15px);
 }
 
 #board {
     display: grid; 
+
+    z-index: 1;
     
     grid-template-rows: repeat(2, 50%);
     grid-gap: 10px; 
@@ -79,14 +95,17 @@ input[type="radio"] + label {
 
     position: absolute;
     width: 50%;
-    z-index: 2;
-    margin: 7% 25%;
+    min-width: 500px;
+    z-index: 4;
+    margin: 7% 24.7%;
 
     border: 1px solid rgba(255, 255, 255, 0.692);
 
     background-color: rgba(255, 255, 255, 0.35);
-
-    justify-content: space-between;
+    
+    vertical-align: middle;
+    
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
@@ -95,14 +114,6 @@ input[type="radio"] + label {
     flex-grow: 5;
     margin: 1%;
     padding-bottom: 3%;
-}
-
-.flexForm {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: auto;
-    justify-content: space-between;
 }
 
 input[type="submit"] {
@@ -147,6 +158,7 @@ input[type="submit"] {
     flex-basis: 25%;
 
     width: 18%;
+    min-width: 150px;
     
     margin: 1% 1%;
     
@@ -156,24 +168,22 @@ input[type="submit"] {
     color: black;
 }
 
-#loginOverlay {
-    display: none;
-    width: 50%;
-}
-
-#settingsOverlay {
-    display: none;
-}
-
-#rulesOverlay {
-    display: none;
-}
-
 #leaderboardOverlay {
     display: none;
 }
 
-.loginButton {
+#submitSettingsButton {
+    width: 100%;
+    background: black;
+    border: 0px;
+    color: white;
+    font: 'Montserrat', sans-serif;
+    font-size: 2rem;
+}
+
+
+
+#loginButton {
     float: right;
 
     background-color: white;
@@ -188,7 +198,15 @@ input[type="submit"] {
     background-color: rgb(32, 32, 32);
     border: 1px solid white;
     padding: 10px 30px;
+    max-width: 150px;
+    text-align: center;
     
     font-family: 'Montserrat', sans-serif;
     color: white;
+}
+
+#concedeButton {
+    z-index: 0;
+    display: none;
+    margin: 0% auto;
 }

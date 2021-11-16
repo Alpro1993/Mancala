@@ -14,7 +14,6 @@ function assign_event_listeners() {
     document.getElementById("rulesButton").addEventListener("click", function(eventObj) {
         eventObj.stopPropagation();
         show_overlay("rulesOverlay");
-        // load_rules();
     });
     document.getElementById("leaderboardButton").addEventListener("click", function(eventObj) {
         eventObj.stopPropagation(); 
@@ -43,6 +42,7 @@ function assign_event_listeners() {
         eventObj.stopPropagation();
         load_board(6);
     });
+    document.getElementById("submitSettings").addEventListener("click", hide_overlay);
 
     ////////Handling of overlay clicks
     //Stop overlays from closing if you click inside the white area
@@ -64,7 +64,31 @@ function assign_event_listeners() {
     //Set overlay to off if you click outside it
     document.addEventListener("click", hide_overlay);
 
+    //Disable login and replace with user's name
+    //This actually only transforms the original button into one that has no function and shows the username.
+    document.getElementById("loginSubmit").addEventListener("click", function() {
+        hide_login_button();
+        show_username();
+        hide_overlay();
+    })
+
+    //Hide "Play Game" and show "Concede" button
+    document.getElementById("playGame").addEventListener("click", function() {
+        document.getElementById("boardOverlay").style.display = "none";
+        document.getElementById("fullBoard").style.filter = "blur(0px)";
+        document.getElementById("concedeButton").style.display = "block";
+    });
+
+    //Hide "Concede" button and show end-game screen 
+    //(which currently does not exist, so we show play button again)
+    document.getElementById("concedeButton").addEventListener("click", function() {
+        document.getElementById("concedeButton").style.display = "none";
+        document.getElementById("boardOverlay").style.display = "inline-flex";
+        document.getElementById("fullBoard").style.filter = "blur(15px)"
+    });
 }
+
+
 
 function show_overlay(overlayName) {
     const overlay = document.getElementById(overlayName).style;
@@ -76,16 +100,32 @@ function show_overlay(overlayName) {
 
 function hide_overlay() {
     var overlays = document.getElementsByClassName("overlay");
-    const content = document.getElementById("content").style;
+    const contentStyle = document.getElementById("content").style;
     
     //Checks every overlay and hides the first one found to be showing.
     for(let i=0; i < overlays.length; i++) {
         if(overlays[i].style.display == "flex") {
-            content.filter = "";
+            contentStyle.filter = "";
             overlays[i].style.display = "none"
             return;
         }
     }
+}
+
+function hide_login_button() {
+    document.getElementById("loginButton").remove();
+}
+
+function show_username() {
+    var buttonBar = document.getElementById("buttonBar");
+    var username = document.getElementById("username").value;
+    
+    usernameDisplay = document.createElement("BUTTON");
+    usernameDisplay.className = "loginButton";
+    usernameDisplay.textContent = "Welcome " + username + "!";
+
+    buttonBar.appendChild(usernameDisplay);
+
 }
 
 function load_board(size) {
@@ -120,7 +160,6 @@ function load_board(size) {
 
         field.innerHTML += '0';
         board.appendChild(field);
-        field.addEventListener("click", function () { field_clicked(i); });
     }
 
     //Creates player's warehouse
@@ -143,7 +182,7 @@ function reset_board() {
     let fullBoard = document.getElementById("fullBoard");
 
     //If the fullBoard div already exists, remove it, as we'll be creating a new one.
-    if (fullBoard != null) {
+    if (board != null) {
         board.remove();
         fullBoard.remove();
     }
