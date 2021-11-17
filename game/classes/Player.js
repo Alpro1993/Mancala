@@ -7,6 +7,10 @@ class Player{
         this.warehouse = null;
         this.fields = null;
     }
+
+    id_to_string() {
+        return String(this.playerId)
+    }
 }
 
 export default Player
