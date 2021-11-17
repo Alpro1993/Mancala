@@ -24,25 +24,15 @@ function assign_event_listeners() {
         show_overlay("loginOverlay")
     });
 
-    ////////////Radio Buttons////////////////
-    //Board Size Buttons
-    document.getElementById("boardSize2").addEventListener("click", function(eventObj) {
-        eventObj.stopPropagation();
-        load_board(2);
+    //Submit settings 
+    document.getElementById("submitSettings").addEventListener("click", function() {
+        var boardSize = Number(document.querySelector('input[name="boardSize"]:checked').value);
+        load_board(boardSize);
+        document.getElementById("concedeButton").style.display = "none";
+        document.getElementById("boardOverlay").style.display = "inline-flex";
+        document.getElementById("fullBoard").style.filter = "blur(15px)";
+        hide_overlay();
     });
-    document.getElementById("boardSize3").addEventListener("click", function(eventObj) {
-        eventObj.stopPropagation();
-        load_board(3);
-    });
-    document.getElementById("boardSize4").addEventListener("click", function(eventObj) {
-        eventObj.stopPropagation();
-        load_board(4);
-    });
-    document.getElementById("boardSize6").addEventListener("click", function(eventObj) {
-        eventObj.stopPropagation();
-        load_board(6);
-    });
-    document.getElementById("submitSettings").addEventListener("click", hide_overlay);
 
     ////////Handling of overlay clicks
     //Stop overlays from closing if you click inside the white area
@@ -87,7 +77,6 @@ function assign_event_listeners() {
         document.getElementById("fullBoard").style.filter = "blur(15px)"
     });
 }
-
 
 
 function show_overlay(overlayName) {
@@ -198,3 +187,9 @@ function reset_board() {
     board.id = "board";
     fullBoard.appendChild(board);
 }
+
+/* 
+create update_leaderboard
+create concede interaction
+create visual representation for seeds
+ */

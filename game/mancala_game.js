@@ -31,8 +31,10 @@ function add_listeners_to_fields() {
         let field = playerFields[i];
         field.addEventListener("click", function() {
             console.log("click on field "+i);
-            take_turn(player, i);
-            //update_board();
+            if(activePlayer == player){
+                take_turn(player, i);
+                update_board();
+            }
         });
     }
 }
@@ -102,6 +104,21 @@ function concede () {
     game.gameState = 3;
 }
 
+function update_board () {
+    for (let i = 0; i < Number(board.size); i++) {
+        let playerFieldSeeds = String(Number(player.fields[i].seeds));
+        let oppFieldSeeds = String(Number(opp.fields[i].seeds));
+        let playerWarehouseSeeds = String(Number(player.warehouse.seeds));
+        let oppWarehouseSeeds = String(Number(opp.warehouse.seeds));
+
+
+        document.getElementById("playerField"+i).innerHTML = playerFieldSeeds;
+        document.getElementById("oppField"+i).innerHTML = oppFieldSeeds;
+        document.getElementById("playerWarehouse").innerHTML = playerWarehouseSeeds;
+        document.getElementById("oppWarehouse").innerHTML = oppWarehouseSeeds;
+        
+    }
+}
 
 //Function take_turn should be given higher abstraction in order to encompass turns of both player and computer
 function take_turn (activePlayer, targetedField) {
@@ -118,8 +135,8 @@ function take_turn (activePlayer, targetedField) {
     //Remove seeds from field and sow them on other fields
     var seedsToSpread = selectedField.seeds;
     selectedField.seeds = 0;
-    var firstSownField = activePlayer.fields[selectedField.position+1];
-    var lastSownField = sow (firstSownField, seedsToSpread);
+
+    var lastSownField = sow (selectedField, seedsToSpread);
     console.log("stopped sowing. lastSownField belongs to "+lastSownField.owner.id_to_string()+" and is position "+lastSownField.position);
     
     //If last seed planted landed on one of the player's empty fields,
@@ -132,7 +149,7 @@ function take_turn (activePlayer, targetedField) {
             lastSownField.seeds = 0;
             playerWarehouse.seeds += 1;
             console.log()
-            steal_seeds(activePlayer.opponent, Number(lastSownField.position));
+            steal_seeds(Number(lastSownField.position));
             player.score = playerWarehouse.seeds;
     }
     
@@ -155,14 +172,16 @@ function take_turn (activePlayer, targetedField) {
     }
 }
 
-function steal_seeds (position) {
-    var targetField = activePlayer.opponent.fields[position];
+function steal_seeds (fieldNo) {
+    var targetField = activePlayer.opponent.fields[fieldNo];
+    console.log("target field belong to "+activePlayer.opponent.id_to_string()+"and is position " +Number(targetField.position));
     var seedsAtTargetField = targetField.seeds;
 
-    targetField.remove_seeds();
+    targetField.seeds = 0;
     activePlayer.warehouse.seeds += seedsAtTargetField;
 }
 
+//Sow function needs A LOT of work, is currently very hacky, but works.
 function sow (selectedField, seedsToSpread) {
     /* First the active player places one seed in each of his fields and his warehouse,
         then he places a seed in each of the opponent's fields, jumping over the opponent's warehouse.
@@ -182,6 +201,12 @@ function sow (selectedField, seedsToSpread) {
 
     if (seedsToSpread > 0) {
         selectedField = activePlayer.fields[0];
+        seedsToSpread -= 1;
+        selectedField.seeds =+ 1;
+        lastSownField = selectedField;
+        if(seedsToSpread == 0) {
+            return lastSownField;
+        }
         sow(selectedField, seedsToSpread);
     } else {
         return lastSownField;
@@ -192,11 +217,17 @@ function sow (selectedField, seedsToSpread) {
 function sow_own_fields(selectedField, seedsToSpread) {
 
     //Place one seed in each of the player's fields
-    while (selectedField.position < board.size-1 && seedsToSpread > 0) {
-        seedsToSpread -= 1;
-        selectedField.seeds += 1;
-        console.log("planted seed at player field "+selectedField.position+"\nseeds left: "+seedsToSpread+"\nseeds at target field: "+selectedField.seeds);
-        selectedField = activePlayer.fields[selectedField.position+1];
+    //but first, check if selectedField was the last field on the board.
+
+    if(selectedField.position != board.size -1 ){
+        for (var i = selectedField.position+1; i < board.size; i++) {
+            if(seedsToSpread > 0) {
+                selectedField = activePlayer.fields[i];
+                seedsToSpread -= 1;
+                selectedField.seeds += 1;
+                console.log("planted seed at player field "+selectedField.position+"\nseeds left: "+seedsToSpread+"\nseeds at target field: "+selectedField.seeds);
+            }
+        }
     }
 
     //If there's still seeds left, place one in the warehouse
@@ -208,7 +239,7 @@ function sow_own_fields(selectedField, seedsToSpread) {
     }
 
     var lastSownField = selectedField;
-    
+    console.log("lastSownField = "+lastSownField.owner.id_to_string()+lastSownField.position);    
     return [lastSownField, seedsToSpread];
 }
 
@@ -236,5 +267,6 @@ function sow_opponent_fields(seedsToSpread) {
 
 
 /* handle founds bugs (especially the one with owner)
-    create update_board
+    create end game state
+    create concede
     create AI */
