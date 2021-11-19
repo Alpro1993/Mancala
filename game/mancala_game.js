@@ -12,23 +12,18 @@ let activePlayer;
 
 const messageBox = document.getElementById("messageBox");
 
-//Add event listener for "Play Game" button
-document.getElementById("playGame").addEventListener("click", function () {
-    let size = document.querySelector('input[name="boardSize"]:checked').value;
-    let seeds = document.querySelector('input[name="numberOfSeeds"]:checked').value;
-    let difficulty = document.querySelector('input[name="difficulty"]:checked').value;
-    let goFirst = document.querySelector('input[name="goFirst"]:checked').value;
-    reset_game();
-    initialize_game(Number(size), Number(seeds), difficulty, goFirst);
-    populate_board(seeds);
-
-});
+//Add event listener for "Play Game" button on both main menu and end game overlay
+document.getElementById("playGame").addEventListener("click", play_game);
+document.getElementById("playAgainButton").addEventListener("click", play_game);
 
 //Add event listener for "Concede button"
 document.getElementById("concede").addEventListener("click", function(eventObj) {
     eventObj.stopPropagation();
     concede();
 });
+
+//Add event listener for "Submit settings button"
+document.getElementById("submitSettingsButton").addEventListener("click", play_game);
 
 function add_listeners_to_fields () {
     let playerFields = document.getElementsByClassName("field playerField");
@@ -67,6 +62,16 @@ function reset_game() {
 
 }
 
+function play_game() {
+    let size = document.querySelector('input[name="boardSize"]:checked').value;
+    let seeds = document.querySelector('input[name="numberOfSeeds"]:checked').value;
+    let difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+    let goFirst = document.querySelector('input[name="goFirst"]:checked').value;
+    reset_game();
+    initialize_game(Number(size), Number(seeds), difficulty, goFirst);
+    populate_board(seeds);
+}
+
 function initialize_game(size, seedsPerField, difficulty, goFirst) {
     game = new Game();
     board = new Board(size);
@@ -74,9 +79,7 @@ function initialize_game(size, seedsPerField, difficulty, goFirst) {
     player = new Player("Player");
     opp = new Player("Opp");
 
-    console.log("player id = " + player.id_to_string());
-
-    opp.difficulty = difficulty;
+    game.difficulty = difficulty;
 
     if (goFirst === 'true') {
         activePlayer = player;
@@ -147,7 +150,6 @@ function concede() {
     game.winner = opp;
     end_game_procedures();
 }
-
 
 function take_turn(targetedField) {
     let lastSownField;
@@ -225,7 +227,7 @@ function take_turn(targetedField) {
     function ai_choose_play() {
         let selectedField;
 
-        if (opp.difficulty == 0) {
+        if (game.difficulty == 0) {
             selectedField = apply_greedy();
         } else {
             selectedField = apply_min_max();
@@ -265,8 +267,10 @@ function take_turn(targetedField) {
             lastSownField = selectedField;
             if (seedsToSpread == 0) {
                 return lastSownField;
+            } else {
+                lastSownField = ai_sow(selectedField, seedsToSpread);
+                return lastSownField;
             }
-            sow(selectedField, seedsToSpread);
         } else {
             return lastSownField;
         }
@@ -343,8 +347,10 @@ function take_turn(targetedField) {
             lastSownField = selectedField;
             if (seedsToSpread == 0) {
                 return lastSownField;
+            } else {
+                lastSownField = sow(selectedField, seedsToSpread);
+                return lastSownField;
             }
-            sow(selectedField, seedsToSpread);
         } else {
             return lastSownField;
         }
@@ -399,7 +405,6 @@ function take_turn(targetedField) {
     /* Functions used in both player and opponent turns */
     function steal_seeds(fieldNo) {
         let targetField = activePlayer.opponent.fields[fieldNo];
-        console.log("target field belong to " + activePlayer.opponent.id_to_string() + "and is position " + Number(targetField.position));
         let seedsAtTargetField = targetField.seeds;
     
         targetField.seeds = 0;
@@ -495,6 +500,11 @@ function end_game_procedures() {
 
     remove_listeners_from_fields();
 
+    document.getElementById("concede").style.display = "none";
+    document.getElementById("playGame").style.display = "block";
+
+    messageBox.textContent = "Change your settings in the \"Settings\" menu or start playing with the default settings by pressing the \"Play!\" button";
+
     function update_leaderboard () {
         let tableBody = document.getElementById("leaderboardTable").getElementsByTagName("tbody")[0];
         let newRow = tableBody.insertRow();
@@ -502,11 +512,21 @@ function end_game_procedures() {
         let resultCell = newRow.insertCell();
         let pScoreCell = newRow.insertCell();
         let oScoreCell = newRow.insertCell();
-            
-        nameCell.textContent = game.winner.id_to_string();
+        let boardCell = newRow.insertCell();
+        let difCell = newRow.insertCell();
+      
+        nameCell.textContent = player.id_to_string();
         resultCell.textContent = (game.winner == player) ? "Won" : "Lost";
         pScoreCell.textContent = player.score;
         oScoreCell.textContent = opp.score;
+        boardCell.textContent = board.size;
+        if(game.difficulty == 0) {
+            difCell.textContent = "Easy";
+        } else if (game.difficulty == 1) {
+            difCell.textContent = "Normal";
+        } else {
+            difCell.textContent = "Hard";
+        }
 
         let bestScoreCell = document.getElementById("bestScore");
         let bestScore = Number(bestScoreCell.textContent);
@@ -515,6 +535,8 @@ function end_game_procedures() {
             bestScoreCell.textContent = player.score;
         }
     }
+
+
 }
 
 function getRandomIntInclusive(min, max) {

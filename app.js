@@ -46,8 +46,22 @@ function assign_event_listeners() {
     });
 
     document.getElementById("submitSettingsButton").addEventListener("click", function() {
+        let size = document.querySelector('input[name="boardSize"]:checked').value;
+        load_board(size);
         hide_overlay();
     })
+
+    /* End game screen buttons  */
+    document.getElementById("newSettingsButton").addEventListener("click", function(eventObj) {
+        hide_overlay();
+        show_overlay("settingsOverlay");
+    });
+    document.getElementById("playAgainButton").addEventListener("click", function() {
+        document.getElementById("playGame").style.display = "none";
+        document.getElementById("concede").style.display = "block";
+        hide_overlay();
+    });
+
 
     ////////Handling of overlay clicks
     //Stop overlays from closing if you click inside the white area
@@ -90,7 +104,6 @@ function assign_event_listeners() {
         document.getElementById("playGame").style.display = "block";
     });
 
-    //Trans 
 
 }
 
